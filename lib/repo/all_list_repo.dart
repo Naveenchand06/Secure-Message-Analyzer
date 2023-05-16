@@ -9,3 +9,7 @@ final contactsListProvider = StateProvider<List<Contact>>((ref) {
 final messagesListProvider = StateProvider<List<SmsMessage>>((ref) {
   return [];
 });
+
+final conNumberListProvider = StateProvider<List<String>>((ref) {
+  return [];
+});

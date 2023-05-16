@@ -51,6 +51,7 @@ class _AppState extends ConsumerState<App> {
 
   _storeContacts(List<Contact> contacts) {
     ref.read(contactsListProvider.notifier).state = contacts;
+    storeNumbers(contacts);
   }
 
   _storeMessages(List<SmsMessage> msgs) {
@@ -63,12 +64,6 @@ class _AppState extends ConsumerState<App> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-      ),
-      drawer: Drawer(
-        backgroundColor: Colors.blueGrey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -130,5 +125,15 @@ class _AppState extends ConsumerState<App> {
         ),
       ),
     );
+  }
+
+  void storeNumbers(List<Contact> contacts) {
+    List<String> conNums = [];
+    for (var item in contacts) {
+      for (var num in item.phones) {
+        conNums.add(num.number);
+      }
+    }
+    ref.read(conNumberListProvider.notifier).state = conNums;
   }
 }
