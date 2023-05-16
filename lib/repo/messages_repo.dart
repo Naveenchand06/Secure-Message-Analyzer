@@ -8,4 +8,8 @@ final safeMessagesProvider =
 
 class SafeMessages extends StateNotifier<List<SmsMessage>> {
   SafeMessages() : super([]);
+
+  void savemessage(List<SmsMessage> msgs) {
+    state = msgs;
+  }
 }

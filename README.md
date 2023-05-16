@@ -1,6 +1,8 @@
-# safe_messages
+# Safe Message Analyzer
 
-A new Flutter project.
+A new Flutter project aimed at analyzing messages and categorizing them into safe and unsafe classifications.
+
+##### Author: [Naveenchand](https://github.com/Naveenchand06).
 
 ## Getting Started
 
