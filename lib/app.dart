@@ -7,6 +7,9 @@ import 'package:safe_messages/components/card_widget.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
 import 'package:safe_messages/screens/contacts_screen.dart';
 import 'package:safe_messages/screens/messages_screen.dart';
+import 'package:safe_messages/screens/safe_messages_screen.dart';
+import 'package:safe_messages/screens/unsure_messages_screen.dart';
+import 'package:safe_messages/utils/num_format_extension.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});
@@ -17,16 +20,20 @@ class App extends ConsumerStatefulWidget {
 
 class _AppState extends ConsumerState<App> {
   final SmsQuery query = SmsQuery();
+  bool _isLoading = true;
 
   @override
   void initState() {
-    _getPermissions();
+    Future(() => _getPermissions());
     super.initState();
   }
 
   Future<void> _getPermissions() async {
     await getMessages();
     await getContacts();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> getMessages() async {
@@ -56,7 +63,6 @@ class _AppState extends ConsumerState<App> {
 
   _storeMessages(List<SmsMessage> msgs) {
     ref.read(messagesListProvider.notifier).state = msgs;
-    debugPrint('SMS stored ==> ${ref.read(messagesListProvider)}');
   }
 
   @override
@@ -65,65 +71,69 @@ class _AppState extends ConsumerState<App> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CardWidget(
-                  title: 'Messages',
-                  icon: Icons.message_outlined,
-                  onPress: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MessagesScreen(),
-                    ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CardWidget(
+                        title: 'Messages',
+                        icon: Icons.message_outlined,
+                        onPress: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MessagesScreen(),
+                          ),
+                        ),
+                      ),
+                      CardWidget(
+                        title: 'Contacts',
+                        icon: Icons.contacts,
+                        onPress: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ContactsScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                CardWidget(
-                  title: 'Contacts',
-                  icon: Icons.contacts,
-                  onPress: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ContactsScreen(),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CardWidget(
+                        title: 'Safe Messages',
+                        icon: Icons.safety_check,
+                        onPress: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SafeMessagesScreen(),
+                          ),
+                        ),
+                      ),
+                      CardWidget(
+                        title: 'Unsure Messages',
+                        icon: Icons.unsubscribe_rounded,
+                        onPress: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UnsureMessagesScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CardWidget(
-                  title: 'Safe Messages',
-                  icon: Icons.safety_check,
-                  onPress: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MessagesScreen(),
-                    ),
-                  ),
-                ),
-                CardWidget(
-                  title: 'Unsure Messages',
-                  icon: Icons.unsubscribe_rounded,
-                  onPress: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ContactsScreen(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -131,7 +141,7 @@ class _AppState extends ConsumerState<App> {
     List<String> conNums = [];
     for (var item in contacts) {
       for (var num in item.phones) {
-        conNums.add(num.number);
+        conNums.add(num.number.toNumFormat());
       }
     }
     ref.read(conNumberListProvider.notifier).state = conNums;
