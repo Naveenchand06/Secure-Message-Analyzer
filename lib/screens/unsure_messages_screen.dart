@@ -42,38 +42,35 @@ class _UnsureMessagesScreenState extends ConsumerState<UnsureMessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Safe Messages'),
+        title: const Text('Unsure Messages'),
       ),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SizedBox(
-              height: double.infinity,
-              child: ListView.builder(
-                itemCount: _unsureMsgs.length,
-                itemBuilder: (context, index) {
-                  SmsMessage msg = _unsureMsgs[index];
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: const CircleAvatar(
-                          radius: 20,
-                          child: Icon(Icons.person),
-                        ),
-                        title: Text(msg.sender ?? 'Unknown'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(msgBody(msg.body.toString())),
-                          ],
-                        ),
+          : ListView.builder(
+              itemCount: _unsureMsgs.length,
+              itemBuilder: (context, index) {
+                SmsMessage msg = _unsureMsgs[index];
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: const CircleAvatar(
+                        radius: 20,
+                        child: Icon(Icons.person),
                       ),
-                      const Divider()
-                    ],
-                  );
-                },
-              ),
+                      title: Text(msg.sender ?? 'Unknown'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(msgBody(msg.body.toString())),
+                        ],
+                      ),
+                    ),
+                    const Divider()
+                  ],
+                );
+              },
             ),
     );
   }

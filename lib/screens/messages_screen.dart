@@ -19,33 +19,30 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       appBar: AppBar(
         title: const Text("SMS"),
       ),
-      body: SizedBox(
-        height: double.infinity,
-        child: ListView.builder(
-          itemCount: messages.length,
-          itemBuilder: (context, index) {
-            SmsMessage msg = messages[index];
-            debugPrint('The msg is ==> ${msg.date}');
-            return Column(
-              children: [
-                ListTile(
-                  leading: const CircleAvatar(
-                    radius: 20,
-                    child: Icon(Icons.person),
-                  ),
-                  title: Text(msg.sender ?? 'Unknown'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(msg.body ?? 'Empty'),
-                    ],
-                  ),
+      body: ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (context, index) {
+          SmsMessage msg = messages[index];
+          debugPrint('The msg is ==> ${msg.date}');
+          return Column(
+            children: [
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 20,
+                  child: Icon(Icons.person),
                 ),
-                const Divider()
-              ],
-            );
-          },
-        ),
+                title: Text(msg.sender ?? 'Unknown'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(msg.body ?? 'Empty'),
+                  ],
+                ),
+              ),
+              const Divider()
+            ],
+          );
+        },
       ),
     );
   }

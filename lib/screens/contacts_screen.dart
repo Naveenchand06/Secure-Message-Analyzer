@@ -18,31 +18,28 @@ class _ContactsScreenState extends ConsumerState<ContactsScreen> {
       appBar: AppBar(
         title: const Text("Contacts"),
       ),
-      body: SizedBox(
-        height: double.infinity,
-        child: ListView.builder(
-          itemCount: contacts.length,
-          itemBuilder: (context, index) {
-            Contact contact = contacts[index];
-            return Column(children: [
-              ListTile(
-                leading: const CircleAvatar(
-                  radius: 20,
-                  child: Icon(Icons.person),
-                ),
-                title: Text(contact.displayName),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(getPhone(contact)),
-                    Text(getEmail(contact)),
-                  ],
-                ),
+      body: ListView.builder(
+        itemCount: contacts.length,
+        itemBuilder: (context, index) {
+          Contact contact = contacts[index];
+          return Column(children: [
+            ListTile(
+              leading: const CircleAvatar(
+                radius: 20,
+                child: Icon(Icons.person),
               ),
-              const Divider()
-            ]);
-          },
-        ),
+              title: Text(contact.displayName),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(getPhone(contact)),
+                  Text(getEmail(contact)),
+                ],
+              ),
+            ),
+            const Divider()
+          ]);
+        },
       ),
     );
   }

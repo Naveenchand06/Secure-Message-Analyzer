@@ -77,61 +77,67 @@ class _AppState extends ConsumerState<App> {
             )
           : Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CardWidget(
-                        title: 'Messages',
-                        icon: Icons.message_outlined,
-                        onPress: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MessagesScreen(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CardWidget(
+                            title: 'Messages',
+                            icon: Icons.message_outlined,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MessagesScreen(),
+                              ),
+                            ),
                           ),
-                        ),
+                          CardWidget(
+                            title: 'Contacts',
+                            icon: Icons.contacts,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ContactsScreen(),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      CardWidget(
-                        title: 'Contacts',
-                        icon: Icons.contacts,
-                        onPress: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ContactsScreen(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CardWidget(
+                            title: 'Safe Messages',
+                            icon: Icons.safety_check,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const SafeMessagesScreen(),
+                              ),
+                            ),
                           ),
-                        ),
+                          CardWidget(
+                            title: 'Unsure Messages',
+                            icon: Icons.unsubscribe_rounded,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const UnsureMessagesScreen(),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CardWidget(
-                        title: 'Safe Messages',
-                        icon: Icons.safety_check,
-                        onPress: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SafeMessagesScreen(),
-                          ),
-                        ),
-                      ),
-                      CardWidget(
-                        title: 'Unsure Messages',
-                        icon: Icons.unsubscribe_rounded,
-                        onPress: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UnsureMessagesScreen(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
             ),
     );

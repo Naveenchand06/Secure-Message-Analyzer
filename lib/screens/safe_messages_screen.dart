@@ -48,33 +48,30 @@ class _SafeMessagesScreenState extends ConsumerState<SafeMessagesScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SizedBox(
-              height: double.infinity,
-              child: ListView.builder(
-                itemCount: _safeMsgs.length,
-                itemBuilder: (context, index) {
-                  SmsMessage msg = _safeMsgs[index];
-                  debugPrint('The msg is ==> ${msg.date}');
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: const CircleAvatar(
-                          radius: 20,
-                          child: Icon(Icons.person),
-                        ),
-                        title: Text(msg.address ?? 'Unknown'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(msgBody(msg.body.toString())),
-                          ],
-                        ),
+          : ListView.builder(
+              itemCount: _safeMsgs.length,
+              itemBuilder: (context, index) {
+                SmsMessage msg = _safeMsgs[index];
+                debugPrint('The msg is ==> ${msg.date}');
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: const CircleAvatar(
+                        radius: 20,
+                        child: Icon(Icons.person),
                       ),
-                      const Divider()
-                    ],
-                  );
-                },
-              ),
+                      title: Text(msg.address ?? 'Unknown'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(msgBody(msg.body.toString())),
+                        ],
+                      ),
+                    ),
+                    const Divider()
+                  ],
+                );
+              },
             ),
     );
   }

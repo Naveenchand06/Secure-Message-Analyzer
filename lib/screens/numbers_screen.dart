@@ -12,25 +12,22 @@ class NumbersScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("Contact Numbers"),
       ),
-      body: SizedBox(
-        height: double.infinity,
-        child: ListView.builder(
-          itemCount: nums.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                  leading: const CircleAvatar(
-                    radius: 20,
-                    child: Icon(Icons.person),
-                  ),
-                  title: Text(nums[index]),
+      body: ListView.builder(
+        itemCount: nums.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 20,
+                  child: Icon(Icons.person),
                 ),
-                const Divider()
-              ],
-            );
-          },
-        ),
+                title: Text(nums[index]),
+              ),
+              const Divider()
+            ],
+          );
+        },
       ),
     );
   }
