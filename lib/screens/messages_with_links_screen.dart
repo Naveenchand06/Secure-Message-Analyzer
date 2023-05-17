@@ -1,40 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
-import 'package:safe_messages/repo/all_list_repo.dart';
+import 'package:safe_messages/repo/messages_repo.dart';
 import 'package:safe_messages/screens/message_detail_screen.dart';
-import 'package:safe_messages/utils/str_extension.dart';
 
-class UnsureMessagesScreen extends ConsumerStatefulWidget {
-  const UnsureMessagesScreen({super.key});
+class MessagesWithLinksScreen extends ConsumerStatefulWidget {
+  const MessagesWithLinksScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _UnsureMessagesScreenState();
+      _MessagesWithLinksScreenState();
 }
 
-class _UnsureMessagesScreenState extends ConsumerState<UnsureMessagesScreen> {
+class _MessagesWithLinksScreenState
+    extends ConsumerState<MessagesWithLinksScreen> {
   bool _isLoading = true;
-  List<SmsMessage> _unsureMsgs = [];
+  List<SmsMessage> _linkMsgs = [];
 
   @override
   void initState() {
-    Future(() => getSafeMessages());
+    Future(() => getMsgsWithLinks());
     super.initState();
   }
 
-  void getSafeMessages() async {
-    final allSms = ref.read(messagesListProvider);
-    final allNums = ref.read(conNumberListProvider);
-    List<SmsMessage> unsureMsgs = [];
-
-    for (var sms in allSms) {
-      if (!allNums.contains(sms.sender?.toNumFormat())) {
-        unsureMsgs.add(sms);
-      }
-    }
+  void getMsgsWithLinks() {
     setState(() {
-      _unsureMsgs = unsureMsgs;
+      _linkMsgs = ref.read(linkMessagesListProvider);
       _isLoading = false;
     });
   }
@@ -43,16 +34,17 @@ class _UnsureMessagesScreenState extends ConsumerState<UnsureMessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Unsure Messages'),
+        title: const Text('Safe Messages'),
       ),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
-              itemCount: _unsureMsgs.length,
+              itemCount: _linkMsgs.length,
               itemBuilder: (context, index) {
-                SmsMessage msg = _unsureMsgs[index];
+                SmsMessage msg = _linkMsgs[index];
+                debugPrint('The msg is ==> ${msg.date}');
                 return Column(
                   children: [
                     ListTile(
@@ -66,7 +58,7 @@ class _UnsureMessagesScreenState extends ConsumerState<UnsureMessagesScreen> {
                         radius: 20,
                         child: Icon(Icons.person),
                       ),
-                      title: Text(msg.sender ?? 'Unknown'),
+                      title: Text(msg.address ?? 'Unknown'),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
+import 'package:safe_messages/screens/message_detail_screen.dart';
 
 class MessagesScreen extends ConsumerStatefulWidget {
   const MessagesScreen({super.key});
@@ -27,6 +28,12 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           return Column(
             children: [
               ListTile(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MessageDetailsScreen(msg: msg),
+                  ),
+                ),
                 leading: const CircleAvatar(
                   radius: 20,
                   child: Icon(Icons.person),

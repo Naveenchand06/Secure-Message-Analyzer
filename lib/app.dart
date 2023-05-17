@@ -5,11 +5,13 @@ import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:safe_messages/components/card_widget.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
+import 'package:safe_messages/repo/messages_repo.dart';
 import 'package:safe_messages/screens/contacts_screen.dart';
 import 'package:safe_messages/screens/messages_screen.dart';
+import 'package:safe_messages/screens/messages_with_links_screen.dart';
 import 'package:safe_messages/screens/safe_messages_screen.dart';
 import 'package:safe_messages/screens/unsure_messages_screen.dart';
-import 'package:safe_messages/utils/num_format_extension.dart';
+import 'package:safe_messages/utils/str_extension.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});
@@ -54,15 +56,6 @@ class _AppState extends ConsumerState<App> {
     if (isGranted) {
       _storeContacts(await FastContacts.getAllContacts());
     }
-  }
-
-  _storeContacts(List<Contact> contacts) {
-    ref.read(contactsListProvider.notifier).state = contacts;
-    storeNumbers(contacts);
-  }
-
-  _storeMessages(List<SmsMessage> msgs) {
-    ref.read(messagesListProvider.notifier).state = msgs;
   }
 
   @override
@@ -135,12 +128,54 @@ class _AppState extends ConsumerState<App> {
                           ),
                         ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CardWidget(
+                            title: 'Messages with Links',
+                            icon: Icons.message_outlined,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const MessagesWithLinksScreen(),
+                              ),
+                            ),
+                          ),
+                          CardWidget(
+                            title: 'Contacts',
+                            icon: Icons.contacts,
+                            onPress: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ContactsScreen(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
     );
+  }
+
+  _storeContacts(List<Contact> contacts) {
+    ref.read(contactsListProvider.notifier).state = contacts;
+    storeNumbers(contacts);
+  }
+
+  _storeMessages(List<SmsMessage> msgs) {
+    ref.read(messagesListProvider.notifier).state = msgs;
+    final List<SmsMessage> msgWithLinks = [];
+    for (var sms in msgs) {
+      if (sms.body?.containsUrl() ?? false) {
+        msgWithLinks.add(sms);
+      }
+    }
+    ref.read(linkMessagesListProvider.notifier).saveMessages(msgWithLinks);
   }
 
   void storeNumbers(List<Contact> contacts) {
@@ -151,5 +186,12 @@ class _AppState extends ConsumerState<App> {
       }
     }
     ref.read(conNumberListProvider.notifier).state = conNums;
+  }
+
+  List<String?> extractURLs(String text) {
+    final urlRegExp = RegExp(r'https?://[^\s]+');
+    final matches = urlRegExp.allMatches(text);
+    final urlsInStr = matches.map((match) => match.group(0)).toList();
+    return urlsInStr;
   }
 }

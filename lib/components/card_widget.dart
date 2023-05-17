@@ -21,7 +21,7 @@ class CardWidget extends StatelessWidget {
       onTap: onPress,
       child: Container(
         width: sw * 40 / 100,
-        height: 130.0,
+        height: 140.0,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
         decoration: BoxDecoration(

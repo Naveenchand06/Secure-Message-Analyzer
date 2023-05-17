@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
-import 'package:safe_messages/utils/num_format_extension.dart';
+import 'package:safe_messages/screens/message_detail_screen.dart';
+import 'package:safe_messages/utils/str_extension.dart';
 
 class SafeMessagesScreen extends ConsumerStatefulWidget {
   const SafeMessagesScreen({super.key});
@@ -56,6 +57,12 @@ class _SafeMessagesScreenState extends ConsumerState<SafeMessagesScreen> {
                 return Column(
                   children: [
                     ListTile(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MessageDetailsScreen(msg: msg),
+                        ),
+                      ),
                       leading: const CircleAvatar(
                         radius: 20,
                         child: Icon(Icons.person),

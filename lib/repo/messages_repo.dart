@@ -13,3 +13,16 @@ class SafeMessages extends StateNotifier<List<SmsMessage>> {
     state = msgs;
   }
 }
+
+final linkMessagesListProvider =
+    StateNotifierProvider<LinkMessages, List<SmsMessage>>((ref) {
+  return LinkMessages();
+});
+
+class LinkMessages extends StateNotifier<List<SmsMessage>> {
+  LinkMessages() : super([]);
+
+  void saveMessages(List<SmsMessage> msgs) {
+    state = msgs;
+  }
+}
