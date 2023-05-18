@@ -40,6 +40,7 @@ class CardWidget extends StatelessWidget {
             Center(
               child: Text(
                 title,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.white,

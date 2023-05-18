@@ -84,8 +84,8 @@ class _SafeMessagesScreenState extends ConsumerState<SafeMessagesScreen> {
   }
 
   String msgBody(String msg) {
-    if (msg.length > 30) {
-      return '${msg.substring(0, 15)}...';
+    if (msg.length > 45) {
+      return '${msg.substring(0, 45)}...';
     }
     return msg;
   }

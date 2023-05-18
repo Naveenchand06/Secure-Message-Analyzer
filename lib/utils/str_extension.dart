@@ -8,6 +8,17 @@ extension NumFormat on String {
     }
     return false;
   }
+
+  List<String> getUrls() {
+    final urlRegExp = RegExp(r'https?://[^\s]+');
+    final matches = urlRegExp.allMatches(this);
+    final urlsInStr = matches
+        .map((match) => match.group(0))
+        .toList()
+        .whereType<String>()
+        .toList();
+    return urlsInStr;
+  }
 }
 
 List<String?> extractURLs(String text) {

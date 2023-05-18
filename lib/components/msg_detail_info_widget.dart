@@ -12,25 +12,33 @@ class MsgDetailInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            fontSize: 16.0,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontSize: 16.0,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            color: Colors.grey,
-            fontSize: 16.0,
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              color: Colors.grey.shade900,
+              fontSize: 16.0,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

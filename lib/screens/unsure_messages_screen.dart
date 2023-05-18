@@ -83,8 +83,8 @@ class _UnsureMessagesScreenState extends ConsumerState<UnsureMessagesScreen> {
   }
 
   String msgBody(String msg) {
-    if (msg.length > 30) {
-      return '${msg.substring(0, 15)}...';
+    if (msg.length > 40) {
+      return '${msg.substring(0, 40)}...';
     }
     return msg;
   }

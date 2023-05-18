@@ -34,7 +34,7 @@ class _MessagesWithLinksScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Safe Messages'),
+        title: const Text('Link Messages'),
       ),
       body: _isLoading
           ? const Center(
@@ -58,7 +58,7 @@ class _MessagesWithLinksScreenState
                         radius: 20,
                         child: Icon(Icons.person),
                       ),
-                      title: Text(msg.address ?? 'Unknown'),
+                      title: Text(msg.sender ?? 'Unknown'),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -75,8 +75,8 @@ class _MessagesWithLinksScreenState
   }
 
   String msgBody(String msg) {
-    if (msg.length > 30) {
-      return '${msg.substring(0, 15)}...';
+    if (msg.length > 45) {
+      return '${msg.substring(0, 45)}...';
     }
     return msg;
   }
