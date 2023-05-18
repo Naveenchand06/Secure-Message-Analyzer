@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:safe_messages/components/card_widget.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
 import 'package:safe_messages/repo/messages_repo.dart';
+import 'package:safe_messages/screens/check_url_screen.dart';
 import 'package:safe_messages/screens/contacts_screen.dart';
 import 'package:safe_messages/screens/messages_screen.dart';
 import 'package:safe_messages/screens/messages_with_links_screen.dart';
@@ -23,6 +24,7 @@ class App extends ConsumerStatefulWidget {
 class _AppState extends ConsumerState<App> {
   final SmsQuery query = SmsQuery();
   bool _isLoading = true;
+  bool _showWheelView = true;
 
   @override
   void initState() {
@@ -63,6 +65,12 @@ class _AppState extends ConsumerState<App> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () => setState(() => _showWheelView = !_showWheelView),
+            icon: const Icon(Icons.change_circle),
+          )
+        ],
       ),
       body: _isLoading
           ? const Center(
@@ -71,13 +79,11 @@ class _AppState extends ConsumerState<App> {
           : Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: _showWheelView
+                    ? ListWheelScrollView(
+                        itemExtent: 180.0,
+                        diameterRatio: 1.4,
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           CardWidget(
                             title: 'Messages',
@@ -99,11 +105,6 @@ class _AppState extends ConsumerState<App> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
                           CardWidget(
                             title: 'Safe Messages',
                             icon: Icons.safety_check,
@@ -126,14 +127,9 @@ class _AppState extends ConsumerState<App> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
                           CardWidget(
                             title: 'Messages with Links',
-                            icon: Icons.message_outlined,
+                            icon: Icons.link_rounded,
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -143,20 +139,106 @@ class _AppState extends ConsumerState<App> {
                             ),
                           ),
                           CardWidget(
-                            title: 'Contacts',
-                            icon: Icons.contacts,
+                            title: 'Check URL',
+                            icon: Icons.check_circle,
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ContactsScreen(),
+                                builder: (context) => const CheckUrlScreen(),
                               ),
                             ),
                           ),
                         ],
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CardWidget(
+                                  title: 'Messages',
+                                  icon: Icons.message_outlined,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MessagesScreen(),
+                                    ),
+                                  ),
+                                ),
+                                CardWidget(
+                                  title: 'Contacts',
+                                  icon: Icons.contacts,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ContactsScreen(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CardWidget(
+                                  title: 'Safe Messages',
+                                  icon: Icons.safety_check,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SafeMessagesScreen(),
+                                    ),
+                                  ),
+                                ),
+                                CardWidget(
+                                  title: 'Unsure Messages',
+                                  icon: Icons.unsubscribe_rounded,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UnsureMessagesScreen(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CardWidget(
+                                  title: 'Messages with Links',
+                                  icon: Icons.link_rounded,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MessagesWithLinksScreen(),
+                                    ),
+                                  ),
+                                ),
+                                CardWidget(
+                                  title: 'Check URL',
+                                  icon: Icons.check_circle,
+                                  onPress: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CheckUrlScreen(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
               ),
             ),
     );

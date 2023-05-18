@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showToast(BuildContext context, String message) {
+void showToast(BuildContext context, String message, [bool showTick = true]) {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
 
   scaffoldMessenger.showSnackBar(
@@ -9,14 +9,16 @@ void showToast(BuildContext context, String message) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(message),
-          const CircleAvatar(
-            radius: 14.0,
-            backgroundColor: Colors.green,
-            child: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-          ),
+          showTick
+              ? const CircleAvatar(
+                  radius: 14.0,
+                  backgroundColor: Colors.green,
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
       duration: const Duration(seconds: 2),

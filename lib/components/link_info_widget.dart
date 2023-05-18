@@ -14,25 +14,25 @@ class LinkInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.blueGrey.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 280.0,
-            child: GestureDetector(
-              onTap: info.type == UrlType.safe
-                  ? () async {
-                      await Clipboard.setData(ClipboardData(text: info.url));
-                      showToast(context, 'Copied to clipboard');
-                    }
-                  : null,
+    return GestureDetector(
+      onTap: info.type == UrlType.safe
+          ? () async {
+              await Clipboard.setData(ClipboardData(text: info.url));
+              showToast(context, 'Copied to clipboard');
+            }
+          : () => showToast(context, 'You cannot copy unsafe URL', false),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.blueGrey.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 280.0,
               child: Text(
                 info.url,
                 overflow: TextOverflow.ellipsis,
@@ -43,9 +43,9 @@ class LinkInfoWidget extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          getIcon(),
-        ],
+            getIcon(),
+          ],
+        ),
       ),
     );
   }

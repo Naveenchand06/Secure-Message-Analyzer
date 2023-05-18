@@ -22,9 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         appBarTheme: const AppBarTheme(
-            centerTitle: true,
-            titleTextStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+          centerTitle: true,
+          elevation: 2.0,
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+          ),
+        ),
       ),
       home: const App(),
     );

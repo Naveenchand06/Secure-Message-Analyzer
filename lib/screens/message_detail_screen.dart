@@ -69,10 +69,27 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.msg.body?.containsUrl() ?? false
-                      ? const CircleAvatar(
-                          radius: 20.0,
-                          backgroundColor: Colors.orangeAccent,
-                          child: Icon(Icons.link),
+                      ? Center(
+                          child: Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.0),
+                              color: Colors.blueGrey.shade100,
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.link),
+                                SizedBox(width: 6.0),
+                                Text(
+                                  'Link',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         )
                       : const SizedBox(),
                   const SizedBox(height: 16.0),
@@ -116,23 +133,26 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                   const SizedBox(height: 20.0),
                   _containsUrl
                       ? Column(
-                          children: _urlStatus
-                              .map((e) => LinkInfoWidget(info: e))
-                              .toList(),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 0.0),
+                              child: const Tooltip(
+                                message: 'Tap on the link to copy it',
+                                padding: EdgeInsets.all(8.0),
+                                triggerMode: TooltipTriggerMode.tap,
+                                child: Icon(Icons.info),
+                              ),
+                            ),
+                            Column(
+                              children: _urlStatus
+                                  .map((e) => LinkInfoWidget(info: e))
+                                  .toList(),
+                            ),
+                          ],
                         )
                       : const SizedBox(),
-                  // ExpansionTile(
-                  //   backgroundColor: Colors.blueGrey.shade300,
-                  //   title: const Text('Link Report'),
-                  //   children: [
-                  //     Container(
-                  //       color: Colors.blueGrey.shade200,
-                  //       child: const Column(
-                  //         children: [],
-                  //       ),
-                  //     )
-                  //   ],
-                  // )
                 ],
               ),
             ),
