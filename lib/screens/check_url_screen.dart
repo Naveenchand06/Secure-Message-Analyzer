@@ -35,6 +35,15 @@ class _CheckUrlScreenState extends State<CheckUrlScreen> {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
+                const Text(
+                  'Verify Link',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.0,
+                  ),
+                ),
+                const SizedBox(height: 20.0),
                 Form(
                   key: key,
                   child: Container(
@@ -46,8 +55,9 @@ class _CheckUrlScreenState extends State<CheckUrlScreen> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(2.0),
                           child: TextFormField(
+                            controller: controller,
                             validator: (value) {
                               if (!(value.toString().containsUrl())) {
                                 return 'Enter a valid URL';

@@ -54,4 +54,5 @@ See `.env.example` file
 
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/safe-link-msg.jpeg" width="250" height="500">
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/unsafe-link-msg.jpeg" width="250" height="500">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/check-url.jpeg" width="250" height="500">
 </p>

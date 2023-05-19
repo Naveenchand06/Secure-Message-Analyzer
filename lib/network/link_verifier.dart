@@ -28,8 +28,10 @@ class LinkVerifier {
     };
 
     try {
-      final response = await dio.post(requestUrl, data: jsonEncode(reqBody));
       debugPrint('URL ==> \n $requestUrl');
+      debugPrint('URL REQUEST BODY ==> \n $reqBody');
+      final response = await dio.post(requestUrl, data: jsonEncode(reqBody));
+
       debugPrint('URL Response is  ==> \n ${response.data}');
       if (response.data['matches'] == null) {
         return UrlType.safe;

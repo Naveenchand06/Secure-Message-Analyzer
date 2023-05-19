@@ -53,7 +53,6 @@ class _SafeMessagesScreenState extends ConsumerState<SafeMessagesScreen> {
               itemCount: _safeMsgs.length,
               itemBuilder: (context, index) {
                 SmsMessage msg = _safeMsgs[index];
-                debugPrint('The msg is ==> ${msg.date}');
                 return Column(
                   children: [
                     ListTile(

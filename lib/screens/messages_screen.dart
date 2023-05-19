@@ -24,7 +24,6 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
         itemCount: messages.length,
         itemBuilder: (context, index) {
           SmsMessage msg = messages[index];
-          debugPrint('The msg is ==> ${msg.date}');
           return Column(
             children: [
               ListTile(

@@ -44,7 +44,6 @@ class _MessagesWithLinksScreenState
               itemCount: _linkMsgs.length,
               itemBuilder: (context, index) {
                 SmsMessage msg = _linkMsgs[index];
-                debugPrint('The msg is ==> ${msg.date}');
                 return Column(
                   children: [
                     ListTile(

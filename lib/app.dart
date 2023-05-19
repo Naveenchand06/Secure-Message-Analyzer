@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:safe_messages/components/card_widget.dart';
+import 'package:safe_messages/components/no_permission_screen.dart';
 import 'package:safe_messages/repo/all_list_repo.dart';
 import 'package:safe_messages/repo/messages_repo.dart';
 import 'package:safe_messages/screens/check_url_screen.dart';
@@ -25,6 +26,8 @@ class _AppState extends ConsumerState<App> {
   final SmsQuery query = SmsQuery();
   bool _isLoading = true;
   bool _showWheelView = false;
+  bool _hasSmsPermission = false;
+  bool _hasContactsPermission = false;
 
   @override
   void initState() {
@@ -47,6 +50,7 @@ class _AppState extends ConsumerState<App> {
     }
     if (isGranted) {
       _storeMessages(await query.getAllSms);
+      setState(() => _hasSmsPermission = true);
     }
   }
 
@@ -57,6 +61,7 @@ class _AppState extends ConsumerState<App> {
     }
     if (isGranted) {
       _storeContacts(await FastContacts.getAllContacts());
+      setState(() => _hasContactsPermission = true);
     }
   }
 
@@ -91,7 +96,9 @@ class _AppState extends ConsumerState<App> {
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const MessagesScreen(),
+                                builder: (context) => (_hasSmsPermission)
+                                    ? const MessagesScreen()
+                                    : const NoPermissionScreen(),
                               ),
                             ),
                           ),
@@ -101,7 +108,9 @@ class _AppState extends ConsumerState<App> {
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ContactsScreen(),
+                                builder: (context) => (_hasContactsPermission)
+                                    ? const ContactsScreen()
+                                    : const NoPermissionScreen(),
                               ),
                             ),
                           ),
@@ -111,8 +120,10 @@ class _AppState extends ConsumerState<App> {
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const SafeMessagesScreen(),
+                                builder: (context) => (_hasSmsPermission &&
+                                        _hasContactsPermission)
+                                    ? const SafeMessagesScreen()
+                                    : const NoPermissionScreen(),
                               ),
                             ),
                           ),
@@ -122,8 +133,10 @@ class _AppState extends ConsumerState<App> {
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const UnsureMessagesScreen(),
+                                builder: (context) => (_hasSmsPermission &&
+                                        _hasContactsPermission)
+                                    ? const UnsureMessagesScreen()
+                                    : const NoPermissionScreen(),
                               ),
                             ),
                           ),
@@ -133,8 +146,9 @@ class _AppState extends ConsumerState<App> {
                             onPress: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const MessagesWithLinksScreen(),
+                                builder: (context) => (_hasSmsPermission)
+                                    ? const MessagesWithLinksScreen()
+                                    : const NoPermissionScreen(),
                               ),
                             ),
                           ),
@@ -164,8 +178,9 @@ class _AppState extends ConsumerState<App> {
                                   onPress: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MessagesScreen(),
+                                      builder: (context) => (_hasSmsPermission)
+                                          ? const MessagesScreen()
+                                          : const NoPermissionScreen(),
                                     ),
                                   ),
                                 ),
@@ -176,7 +191,9 @@ class _AppState extends ConsumerState<App> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ContactsScreen(),
+                                          (_hasContactsPermission)
+                                              ? const ContactsScreen()
+                                              : const NoPermissionScreen(),
                                     ),
                                   ),
                                 ),
@@ -192,7 +209,10 @@ class _AppState extends ConsumerState<App> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const SafeMessagesScreen(),
+                                          (_hasSmsPermission &&
+                                                  _hasContactsPermission)
+                                              ? const SafeMessagesScreen()
+                                              : const NoPermissionScreen(),
                                     ),
                                   ),
                                 ),
@@ -203,7 +223,10 @@ class _AppState extends ConsumerState<App> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const UnsureMessagesScreen(),
+                                          (_hasSmsPermission &&
+                                                  _hasContactsPermission)
+                                              ? const UnsureMessagesScreen()
+                                              : const NoPermissionScreen(),
                                     ),
                                   ),
                                 ),
@@ -218,8 +241,9 @@ class _AppState extends ConsumerState<App> {
                                   onPress: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MessagesWithLinksScreen(),
+                                      builder: (context) => (_hasSmsPermission)
+                                          ? const MessagesWithLinksScreen()
+                                          : const NoPermissionScreen(),
                                     ),
                                   ),
                                 ),
