@@ -1,6 +1,6 @@
 # Safe Message Analyzer
 
-A new Flutter project aimed at analyzing messages and categorizing them into safe and unsafe classifications.
+Introducing a new Flutter project that focuses on analyzing messages on your mobile device and categorizing them into different groups such as safe, unsure, and messages with links. The project also includes a feature to analyze the safety of the links within the messages. If a link is deemed safe, you will have the option to copy it, but if it is flagged as unsafe, copying will be restricted.
 
 ##### Author: [Naveenchand](https://github.com/Naveenchand06).
 
