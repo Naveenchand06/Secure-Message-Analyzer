@@ -50,9 +50,14 @@ See `.env.example` file
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/home2.jpeg" width="250" height="500">
 <img src="https://raw.githubusercontent.com/Naveenchand06/Secure-Message-Analyzer/master/assets/screenshots/home3.jpeg" width="250" height="500">
 </p>
-<p float="left">
 
+<p float="left">
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/safe-link-msg.jpeg" width="250" height="500">
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/unsafe-link-msg.jpeg" width="250" height="500">
 <img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/check-url.jpeg" width="250" height="500">
+</p>
+
+<p float="left">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/link-copy.jpeg" width="250" height="500">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/multi-link.jpeg" width="250" height="500">
 </p>
