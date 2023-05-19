@@ -24,7 +24,7 @@ class App extends ConsumerStatefulWidget {
 class _AppState extends ConsumerState<App> {
   final SmsQuery query = SmsQuery();
   bool _isLoading = true;
-  bool _showWheelView = true;
+  bool _showWheelView = false;
 
   @override
   void initState() {
