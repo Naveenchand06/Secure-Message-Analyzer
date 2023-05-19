@@ -17,7 +17,41 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+### Setup
+
+## Clone the repository
+
+<img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/clone.png" alt="clone this repository" />
+
+Click on the code button which is in green color and then click the _copy to clipboard_ icon.
+
+Open a terminal and run the following git command:
+
+```
+git clone "url you just copied"
+```
+
+where "url you just copied" (without the quotation marks) is the url to this repository (your fork of this project).
+
+<img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/copy-to-clipboard.png" alt="copy URL to clipboard" />
+
+It will download the code in the directory in which you are executing this command. You'll see a folder named _Secure-Message-Analyzer_
+
+Now, open that folder in your text editor.
+
+Create a `.env` file and add `API_KEY`
+
+See `.env.example` file
+
 ## Screenshots
 
 <p float="left">
-<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/home.jpeg" width="250" height="500">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/home1.jpeg" width="250" height="500">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/home2.jpeg" width="250" height="500">
+<img src="https://raw.githubusercontent.com/Naveenchand06/Secure-Message-Analyzer/master/assets/screenshots/home3.jpeg" width="250" height="500">
+</p>
+<p float="left">
+
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/safe-link-msg.jpeg" width="250" height="500">
+<img src="https://github.com/Naveenchand06/Secure-Message-Analyzer/raw/master/assets/screenshots/unsafe-link-msg.jpeg" width="250" height="500">
+</p>
